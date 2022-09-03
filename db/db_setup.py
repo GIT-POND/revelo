@@ -10,7 +10,7 @@ engine = create_engine(
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 
-Base = declarative_base()
+Base = declarative_base() # generic db table base
 
 # databse session utility function
 def get_db():

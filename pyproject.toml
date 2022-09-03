@@ -10,7 +10,7 @@ python = "^3.10"
 uvicorn = "^0.18.3"
 fastapi = "^0.81.0"
 SQLAlchemy = "^1.4.40"
-psycopg2 = "^2.9.3"
+psycopg2 = {extras = ["binary"], version = "^2.9.3"}
 
 
 [build-system]
