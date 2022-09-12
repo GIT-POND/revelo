@@ -1,7 +1,4 @@
-from enum import unique
-from operator import index
-from tkinter.tix import COLUMN
-from ..db_setup import Base
+from .database import Base
 from sqlalchemy import Column, Integer, String, DATE, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
