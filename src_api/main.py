@@ -12,7 +12,7 @@ from . import models
 models.Base.metadata.create_all(bind=engine)
 
 # import endpoint file
-import webpage_endpoints
+import endpoints_webpage
 
 
 app = FastAPI()
@@ -30,7 +30,7 @@ while True:
 
 
 # include endpoints in endpoints file
-app.include_router(webpage_endpoints.router)
+app.include_router(endpoints_webpage.router)
 
 # homepage endpoint
 @app.get("/")
