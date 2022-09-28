@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, DATE, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
 class Webpage(Base):
-    __table_name__ = "webpages"
+    __tablename__ = "webpages"
     id = Column(Integer, primary_key=True, index=True)
     url = Column(String, unique=True, nullable=False)
     search_id = Column(Integer, ForeignKey("searches.id"), nullable=False)
@@ -12,7 +12,7 @@ class Webpage(Base):
 
 
 class Search(Base):
-    __table_name__ = "searches"
+    __tablename__ = "searches"
     id = Column(Integer, primary_key=True, index=True)
     search_date = Column(DATE, nullable=False)
     misdirection_found = Column(Boolean, nullable=False)

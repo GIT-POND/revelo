@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from .database import  get_db
 
 # use webscrape algo
-from .algorithm import search_webpage
+from src import algorithm
 
 # Replace app with router to app
 router = APIRouter()
@@ -21,7 +21,7 @@ router = APIRouter()
             WEBPAGE SEARCH 
 ---------------------------------------
 '''
-# endpoint schema
+
 class Website_in(BaseModel):
     url: str
 class Website_out(BaseModel):
@@ -31,10 +31,9 @@ class Website_out(BaseModel):
     hasFriendSpam: bool
     hasHiddenCosts: bool
 
-# endpoint
-@router.post("/website")
+
+@router.post("/website_search")
 async def search_website(site_data:Website_in, db: Session = Depends(get_db)):
-    search_webpage(site_data.url)
-    return {"message":site_data}
+    return {"message":algorithm.extractText(site_data.url)}
 
 
