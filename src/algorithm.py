@@ -81,7 +81,6 @@ def getHeaders(site_url):
     base_url = re.findall(r'[\w]{3,4}[\.]{1}[\w]+[\.]{1}[\w]{3}', site_url)[0]
     return headers[base_url]
 
-
 def extractText(site_url):
     site_html = requests.get(url=site_url, headers=getHeaders(site_url))
     parsed_html = BeautifulSoup(site_html.text, 'html.parser').find_all()
@@ -90,7 +89,6 @@ def extractText(site_url):
     formatted_text = list(set([x[1:-1].strip() for x in raw_text]))
     
     return formatted_text
-
 
 def findDarkPatterns(text):
     print()
