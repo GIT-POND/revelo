@@ -1,3 +1,4 @@
+from cProfile import label
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -81,7 +82,7 @@ def getHeaders(site_url):
     base_url = re.findall(r'[\w]{3,4}[\.]{1}[\w]+[\.]{1}[\w]{3}', site_url)[0]
     return headers[base_url]
 
-def extractText(site_url):
+def extractDataset(site_url):
     site_html = requests.get(url=site_url, headers=getHeaders(site_url))
     parsed_html = BeautifulSoup(site_html.text, 'html.parser').find_all()
 
@@ -90,5 +91,30 @@ def extractText(site_url):
     
     return formatted_text
 
-def findDarkPatterns(text):
-    print()
+def naiveBayesClassifier(html_tags, html_text, label, prediction_set):
+    '''
+    # Assigning features and label variables
+    weather = ['Sunny','Sunny','Overcast','Rainy','Rainy']
+    temp    = ['Hot','Hot','Hot','Mild','Cool']
+    play    = ['No','No','Yes','Yes','Yes']
+
+    '''
+    from sklearn.naive_bayes import GaussianNB
+    from sklearn import preprocessing
+    
+    le = preprocessing.LabelEncoder()
+    
+    tags_encoded = le.fit_transform(html_tags)
+    text_encoded = le.fit_transform(html_text)
+    label = le.fit_transform
+    
+    features = zip(tags_encoded, text_encoded)
+    
+    model = GaussianNB()
+    model.fit(features,label)
+    
+    predicted = model.predict(prediction_set)
+    # prediction set >> [[0,3],[1,1],[1,5],[0,1]]
+    
+    return predicted
+    
