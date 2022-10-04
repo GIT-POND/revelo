@@ -22,5 +22,6 @@ app.include_router(webpage.router)
 # homepage endpoint
 @app.get("/")
 async def root():
-    return {'google site text': algorithm.extractText("https://www.google.com/")}
+    #return {'google site text': algorithm.extractWorkingDataset("https://us.shein.com/")}
+    return {'google site text': algorithm.test_func("https://www.mcafee.com/consumer/en-us/landing-page/direct/sem/mtp-family/desktop/brand-ad.html?csrc=bing&csrcl2=main-ad&cctype=desktop-brand&ccstype=&ccoe=direct&ccoel2=sem&affid=1487&cid=238375&utm_source=bing&utm_medium=paidsearch&utm_campaign=[EN-US][Search][Brand]%20McAfee&utm_content=[brand][exact]%20mcafee&utm_term=mcafee&msclkid=9dd4eaa380211cb22b9f89986e6a6772")}
 
