@@ -14,11 +14,9 @@ class Webpage(Base):
 class Search(Base):
     __tablename__ = "searches"
     id = Column(Integer, primary_key=True, index=True)
-    search_date = Column(DATE, nullable=False)
-    misdirection_found = Column(Boolean, nullable=False)
-    hidden_ads_found = Column(Boolean, nullable=False)
-    forced_continuity_found = Column(Boolean, nullable=False)
-    friend_spam_found = Column(Boolean, nullable=False)
-    hidden_costs_found = Column(Boolean, nullable=False)
+    date = Column(DATE, nullable=False)
+    scarcity = Column(Boolean, nullable=False)
+    countDown = Column(Boolean, nullable=False)
+    socialProof = Column(Boolean, nullable=False)
 
     define_parent = relationship("Webpage", back_populates="searches")

@@ -1,4 +1,3 @@
-from msilib.schema import Error
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -37,29 +36,51 @@ def create_dataset_from_url(file_name, site_url):
 def label_dataset():
     #?-------------------------------------------
     '''
-        add labels to training set using a 
-        word bank
+        create training set by replacing all words
+        with "scarcity", "countDown", "socialProof",
+        or "None". As well as adding a "True" or 
+        "False" to each line stating if a DP is found.
     '''
     #?-------------------------------------------
     input_file = open('dataset(unprocessed).csv')
-    reference_file = open('dataset(reference).csv')
+    scarcity_file = open('_scarcity.csv')
+    countDown_file = open('_countDown.csv')
+    socialProof_file = open('_socialProof.csv')   
     output_file = open('dataset(training).csv', 'w', encoding='UTF8',newline='')
 
     table = csv.reader(input_file)
-    word_bank_unformatted = csv.reader(reference_file)
+    file1 = csv.reader(scarcity_file)
+    file2 = csv.reader(countDown_file)
+    file3 = csv.reader(socialProof_file)
     writer = csv.writer(output_file)
 
-    word_bank = []
+    wb1 = []
+    wb2 = []
+    wb3 = []
 
-    for list in word_bank_unformatted:
-        word_bank.append(list[0])
+    for line in file1:
+        wb1.append(line[0])
+    for line in file2:
+        wb2.append(line[0])
+    for line in file3:
+        wb3.append(line[0])
 
     for row in table:
-        if str(row[1]) in word_bank:
-            row.append(1)
+        if str(row[1]) in wb1:
+            row[1] = 'scarcity'
+            row.append(True)
+            writer.writerow(row)
+        elif str(row[1]) in wb2:
+            row[1] = 'countDown'
+            row.append(True)
+            writer.writerow(row)
+        elif str(row[1]) in wb3:
+            row[1] = 'socialProof'
+            row.append(True)
             writer.writerow(row)
         else:
-            row.append(0)
+            row[1] = 'None'
+            row.append(False)
             writer.writerow(row)
 
 
