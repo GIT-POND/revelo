@@ -1,0 +1,7 @@
+demand
+popular
+stars
+rated
+top
+hot
+need
