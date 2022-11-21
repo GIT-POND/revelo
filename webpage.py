@@ -29,7 +29,7 @@ class EntryBase(BaseModel):
     scarcity: bool
     countDown: bool
     socialProof: bool
-    
+
     class Config:
         orm_mode = True
 
@@ -48,11 +48,11 @@ class Entry_reponse(EntryBase):
 Return searches using URL (if any)
 ---------------------------------------
 '''
-@router.get("/search", response_model = Entry_create)
+@router.post("/search")
 async def model_results(entry:Entry_search,db: Session = Depends(get_db)):
     result = db.query(models.Entry).filter(models.Entry.url == entry.url).first()
     if result is None:
-        return {"url":"None","scarcity":False,"countDown":False,"socialProof":False}
+       raise HTTPException(status_code=500, detail="Entry not found")
     else:
         return result
 
@@ -73,9 +73,9 @@ async def model_run(entry:Entry_search, db: Session = Depends(get_db)):
         db_entry = models.Entry(
             url=entry.url, 
             date=datetime.now(), 
-            scarcity=True if(results[0]>0)else False, 
-            countDown=True if(results[1]>0)else False, 
-            socialProof=True if(results[2]>0)else False,
+            scarcity=True if(results[0]>5)else False, 
+            countDown=True if(results[1]>3)else False, 
+            socialProof=True if(results[2]>3)else False,
             )
         
         db.add(db_entry)
